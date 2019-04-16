@@ -1,0 +1,69 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.ResourceBundle;
+import java.util.Locale;
+
+public class Main implements java.io.Serializable {
+	public static void main(String[] args) throws IOException  {
+		FileReader inputStream 		= null;
+	    FileWriter outputStream 	= null;
+	    FileWriter outputStream2 	= null;
+	      try {
+	    	  inputStream 	= new FileReader("pliczek1.txt");
+	    	  outputStream 	= new FileWriter("pliczek2.txt");
+	    	  outputStream2 	= new FileWriter("pliczek3.txt");
+
+	            int c;
+	            ArrayList<Integer> temporaryList = new ArrayList<>();
+	            while ((c = inputStream.read()) != -1) {
+	            	temporaryList.add((Integer) c);
+	            }
+	            Collections.reverse(temporaryList);
+	            
+	            Iterator<Integer> ite = temporaryList.iterator();
+	            while(ite.hasNext()) {
+		           outputStream.write((int) ite.next());
+	            }
+	            Collections.reverse(temporaryList);
+	           
+	            
+	            for(int i=0; i<temporaryList.size(); i += 2) {
+	            	outputStream2.write(  temporaryList.get(i) );
+	            }
+	            
+	            
+	            
+	            for(int i=1; i<temporaryList.size(); i += 2) {
+	            	outputStream2.write(  temporaryList.get(i) );
+	            }
+	            
+	        }
+	        catch(FileNotFoundException ex) {
+	        	System.err.println("Wykryto b31d: nie znaleziono pliku");
+	        	ex.printStackTrace();
+	        }
+	        catch(IOException ex) {
+	        	ex.printStackTrace();
+	        }
+	        
+	        finally {
+	            if (inputStream != null) {
+	            	inputStream.close();
+	            }
+	            if (outputStream != null) {
+	            	outputStream.close();
+	            }
+	            if (outputStream2 != null) {
+	            	outputStream2.close();
+	            }
+	        }
+	   
+	      
+	    }
+	}
+
